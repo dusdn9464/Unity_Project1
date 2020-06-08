@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
+    
     //에너미매니저 역할?
     //에너미프리팹을 공장에서 찍어낸다 (에너미 프리팹)
     //에너미 스폰타임
@@ -14,6 +16,10 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] spawnPoints;
     float spawnTime = 1.0f;                     //스폰타임 (몇초에 한번씩 찍어낼거니?)
     float curTime = 0.0f;                       //누적타임
+
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -43,7 +49,9 @@ public class EnemyManager : MonoBehaviour
             enemy.transform.position = spawnPoints[index].transform.position;
             //enemy.transform.position = transform.GetChild(index).transform.position;
 
-
         }
     }
+
+
+
 }

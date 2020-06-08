@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
         //Destroy(gameObject, 1.0f);  //1초후 삭제
         Destroy(gameObject);
         Destroy(collision.gameObject);
+        //킬카운트 함수호출
+        AddScore.instance.KillScore();
     }
 
 }

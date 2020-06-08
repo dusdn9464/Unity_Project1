@@ -30,7 +30,7 @@ public class PlayerFire : MonoBehaviour
     void Update()
     {
         //Fire();
-        FireRay();
+        //FireRay();
         //레이저 보여주는 기능이 활성화 되어 있을때만
         //레이저를 보여준다
         //일정시간이 지나면 레이저를 보여주는 기능 비활성화
@@ -50,7 +50,7 @@ public class PlayerFire : MonoBehaviour
 
 
     //총알발사
-    private void Fire()
+    public void Fire()
     {
         //마우스왼쪽버튼 or 왼쪽컨트롤 키
         if(Input.GetButtonDown("Fire1"))
@@ -68,7 +68,7 @@ public class PlayerFire : MonoBehaviour
     }
 
     //레이저발사
-    private void FireRay()
+    public void FireRay()
     {
         //마우스왼쪽버튼 or 왼쪽컨트롤 키
         if (Input.GetButtonDown("Fire1"))
@@ -118,5 +118,16 @@ public class PlayerFire : MonoBehaviour
 
         //일정시간 지나면 레이저 false해주기
         
+    }
+
+    //파이어버튼 클릭시 
+    public void OnFireButtonClick()
+    {
+        //총알 게임오브젝트 생성
+        GameObject bullet = Instantiate(bulletFactory);
+        //총알 오브젝트의 위치 지정
+        //bullet.transform.position = transform.position;
+        bullet.transform.position = firePoint.transform.position;
+
     }
 }
