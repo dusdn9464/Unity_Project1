@@ -20,10 +20,17 @@ public class Enemy : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //자기자신도 없애고
+        Destroy(gameObject);
         //충돌된 오브젝트도 없앤다
         //Destroy(gameObject, 1.0f);  //1초후 삭제
-        Destroy(gameObject);
-        Destroy(collision.gameObject);
+        if (collision.gameObject.name.Contains("Bullet"))
+        {
+            
+            //Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+        }
+
+        
 
         //이펙트보여주기
         ShowEffect();
@@ -36,6 +43,8 @@ public class Enemy : MonoBehaviour
     {
         GameObject fx = Instantiate(fxFactory);
         fx.transform.position = transform.position;
+        Destroy(fx, 1.0f);
+
     }
 
 }

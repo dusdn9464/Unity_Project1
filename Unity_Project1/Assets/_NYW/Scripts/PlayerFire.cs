@@ -26,9 +26,9 @@ public class PlayerFire : MonoBehaviour
     //1. 배열
     //GameObject[] bulletPool;
     //2. 리스트
-    //public List<GameObject> bulletPool;
+    public List<GameObject> bulletPool;
     //3. 큐
-    public Queue<GameObject> bulletPool;
+    //public Queue<GameObject> bulletPool;
 
     // Start is called before the first frame update
     void Start()
@@ -60,22 +60,22 @@ public class PlayerFire : MonoBehaviour
         //}
 
         //2. 리스트
-        //bulletPool = new List<GameObject>();
-        //for(int i = 0;i < poolSize; i++)
-        //{
-        //    GameObject bullet = Instantiate(bulletFactory);
-        //    bullet.SetActive(false);
-        //    bulletPool.Add(bullet);
-        //}
-
-        //3. 큐
-        bulletPool = new Queue<GameObject>();
-        for (int i = 0; i < poolSize; i++)
+        bulletPool = new List<GameObject>();
+        for(int i = 0;i < poolSize; i++)
         {
             GameObject bullet = Instantiate(bulletFactory);
             bullet.SetActive(false);
-            bulletPool.Enqueue(bullet);
+            bulletPool.Add(bullet);
         }
+
+        //3. 큐
+        //bulletPool = new Queue<GameObject>();
+        //for (int i = 0; i < poolSize; i++)
+        //{
+        //    GameObject bullet = Instantiate(bulletFactory);
+        //    bullet.SetActive(false);
+        //    bulletPool.Enqueue(bullet);
+        //}
     }
 
     // Update is called once per frame
@@ -113,11 +113,11 @@ public class PlayerFire : MonoBehaviour
             //if (fireIndex >= poolSize) fireIndex = 0;
 
             //2. 리스트 오브젝트풀링으로 총알발사         
-            //bulletPool[fireIndex].SetActive(true);
-            //bulletPool[fireIndex].transform.position = firePoint.transform.position;
-            //bulletPool[fireIndex].transform.up = firePoint.transform.up;
-            //fireIndex++;
-            //if (fireIndex >= poolSize) fireIndex = 0;
+            bulletPool[fireIndex].SetActive(true);
+            bulletPool[fireIndex].transform.position = firePoint.transform.position;
+            bulletPool[fireIndex].transform.up = firePoint.transform.up;
+            fireIndex++;
+            if (fireIndex >= poolSize) fireIndex = 0;
 
 
             //3. 리스트 오브젝트풀링으로 총알발사 (진짜 오브젝트 풀링)
@@ -139,21 +139,21 @@ public class PlayerFire : MonoBehaviour
             //}
 
             //4. 큐 오브젝트풀링 사용하기
-            if (bulletPool.Count > 0)
-            {
-                GameObject bullet = bulletPool.Dequeue();
-                bullet.SetActive(true);
-                bullet.transform.position = firePoint.transform.position;
-                bullet.transform.up = firePoint.transform.up;
-            }
-            else
-            {
-                //총알 오브젝트 생성한다
-                GameObject bullet = Instantiate(bulletFactory);
-                bullet.SetActive(false);
-                //생성된 총알 오브젝트를 풀에 담는다
-                bulletPool.Enqueue(bullet);
-            }
+            //if (bulletPool.Count > 0)
+            //{
+            //    GameObject bullet = bulletPool.Dequeue();
+            //    bullet.SetActive(true);
+            //    bullet.transform.position = firePoint.transform.position;
+            //    bullet.transform.up = firePoint.transform.up;
+            //}
+            //else
+            //{
+            //    //총알 오브젝트 생성한다
+            //    GameObject bullet = Instantiate(bulletFactory);
+            //    bullet.SetActive(false);
+            //    //생성된 총알 오브젝트를 풀에 담는다
+            //    bulletPool.Enqueue(bullet);
+            //}
 
 
 
@@ -223,6 +223,8 @@ public class PlayerFire : MonoBehaviour
     //파이어버튼 클릭시
     public void OnFireButtonClick()
     {
+
+
         //총알 게임오브젝트 생성
         //GameObject bullet = Instantiate(bulletFactory);
         ////총알 오브젝트의 위치 지정
@@ -232,21 +234,28 @@ public class PlayerFire : MonoBehaviour
         //SceneMgr.Instance.LoadScene("StartScene");
 
         //4. 큐 오브젝트풀링 사용하기
-        if (bulletPool.Count > 0)
-        {
-            GameObject bullet = bulletPool.Dequeue();
-            bullet.SetActive(true);
-            bullet.transform.position = firePoint.transform.position;
-            bullet.transform.up = firePoint.transform.up;
-        }
-        else
-        {
-            //총알 오브젝트 생성한다
-            GameObject bullet = Instantiate(bulletFactory);
-            bullet.SetActive(false);
-            //생성된 총알 오브젝트를 풀에 담는다
-            bulletPool.Enqueue(bullet);
-        }
+        //if (bulletPool.Count > 0)
+        //{
+        //    GameObject bullet = bulletPool.Dequeue();
+        //    bullet.SetActive(true);
+        //    bullet.transform.position = firePoint.transform.position;
+        //    bullet.transform.up = firePoint.transform.up;
+        //}
+        //else
+        //{
+        //    //총알 오브젝트 생성한다
+        //    GameObject bullet = Instantiate(bulletFactory);
+        //    bullet.SetActive(false);
+        //    //생성된 총알 오브젝트를 풀에 담는다
+        //    bulletPool.Enqueue(bullet);
+        //}
+
+        //2. 리스트 오브젝트풀링으로 총알발사         
+        bulletPool[fireIndex].SetActive(true);
+        bulletPool[fireIndex].transform.position = firePoint.transform.position;
+        bulletPool[fireIndex].transform.up = firePoint.transform.up;
+        fireIndex++;
+        if (fireIndex >= poolSize) fireIndex = 0;
     }
 
     public void OnLaserButtonClick()
