@@ -33,6 +33,15 @@ public class BossManager : MonoBehaviour
 
     }
 
+        
+
+    private void ShowEffect()
+    {
+        GameObject fx = Instantiate(explosion);
+        fx.transform.position = transform.position;
+        Destroy(fx, 1.0f);
+    }
+
     //플레이어를 향해서 총알발사
     private void AutoFire1()
     {

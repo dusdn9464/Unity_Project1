@@ -12,37 +12,47 @@ public class AddScore : MonoBehaviour
 
     public static AddScore instance = null;
 
-    public int killCount;
-    public int record;                 //최고기록
-    public Text killCountTxt;           //일반 UI 텍스트
-    public Text recordCountTxt;         //일반 UI 텍스트
-    public TextMeshProUGUI textTxt;     //텍스트메시프로 
 
-    //int score = 0;
-    //int highScore = 0;
+    int score = 0;
+    int highScore = 0;
+    public Text scoreTxt;           //일반 UI 텍스트
+    public Text highScoreTxt;         //일반 UI 텍스트
+    public TextMeshProUGUI textTxt;     //텍스트메시프로
 
-    private void Awake()
+    public GameObject gameOverPanel;
+    public Text gameOverScore;
+    public Text gameOverHighScore;
+    int OverScore;
+    int OverHighScore;
+
+    public GameObject boss;
+
+
+    private void Awake() => instance = this;
+    
+
+    private void Start()
     {
-        //하이스코어 불러오기
-        //highScore = PlayerPrefs.GetInt("HighScore");
-        //highScoreTxt.text = "HighScore : " + highScore;
-
-        LoadGameData();
-        if (instance == null) instance = this;
-        else if (instance != this) Destroy(this.gameObject);
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void LoadGameData()
-    {
-        record = PlayerPrefs.GetInt("KILL_COUNT", 0);
-        recordCountTxt.text = "HIGHSCORE : " + record.ToString("0");
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        highScoreTxt.text = "HighScore\n" + highScore.ToString("0");
     }
 
     private void Update()
     {
-        //하이스코어
-        //SaveHighScore();
+        if (gameOverPanel.activeSelf == true)
+        {
+            //OverScore = PlayerPrefs.GetInt("KILL_COUNT");
+            gameOverScore.text = score.ToString("");
+            OverHighScore = PlayerPrefs.GetInt("HighScore");
+            gameOverHighScore.text = OverHighScore.ToString("");
+        }
+
+        //보스 등장
+        if(score > 5)
+        {
+            boss.SetActive(true);
+            
+        }
     }
 
     public void KillScore()
@@ -51,25 +61,15 @@ public class AddScore : MonoBehaviour
         //scoreTxt.text = "Score : " + score;
         
 
-        ++killCount;
-        killCountTxt.text = "SCORE : " + killCount.ToString("0");
-        PlayerPrefs.SetInt("KILL_COUNT", killCount);
+        ++score;
+        scoreTxt.text = "Score\n" + score.ToString("0");
+        //PlayerPrefs.SetInt("KILL_COUNT", score);
 
-        if (killCount > record)
+        if (score > highScore)
         {
-            ++record;
-            recordCountTxt.text = "HIGHSCORE : " + record.ToString("");
-            PlayerPrefs.SetInt("KILL_COUNT", record);
+            ++highScore;
+            highScoreTxt.text = "HighScore\n" + highScore.ToString("");
+            PlayerPrefs.SetInt("HighScore", highScore);
         }
     }
-
-    ///void SaveHighScore()
-    ///{
-    ///    if(score > highScore)
-    ///    {
-    ///        HighScore = score;
-    ///        PlayerPrefs.SetInt("HighScore", highScore);
-    ///        highScoreTxt.text = "HighScore" + HighScore;
-    ///    }
-    ///}
 }

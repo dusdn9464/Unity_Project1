@@ -277,7 +277,8 @@ public class PlayerFire : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo))
         {
             //레이져의 끝점 지정
-            lr.SetPosition(1, hitInfo.point);
+            //lr.SetPosition(1, hitInfo.point);
+            lr.SetPosition(1, transform.position + Vector3.up * 10);
             //충돌된 오브젝트 모두 지우기
             //Destroy(hitInfo.collider.gameObject);
 
